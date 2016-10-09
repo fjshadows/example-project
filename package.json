@@ -1,0 +1,33 @@
+{
+  "name": "test_project",
+  "version": "1.0.0",
+  "description": "this is test projeect",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node app.js",
+    "dev": "NODE_ENV=development node app.js",
+    "dbg": "NODE_ENV=development node debug app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^1.21.0",
+    "crypto": "0.0.3",
+    "koa": "^2.0.0",
+    "koa-body": "^1.6.0",
+    "koa-body-parser": "^1.1.2",
+    "koa-bodyparser": "^3.2.0",
+    "koa-convert": "^1.2.0",
+    "koa-generic-session": "^1.11.3",
+    "koa-jade": "^2.1.0",
+    "koa-passport": "^2.2.2",
+    "koa-pug": "^3.0.0-0",
+    "koa-router": "^7.0.1",
+    "koa-static": "^3.0.0",
+    "moment": "^2.15.1",
+    "mongodb": "^2.2.10",
+    "mongoose": "^4.6.3",
+    "passport-local": "^1.0.0"
+  }
+}

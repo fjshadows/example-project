@@ -1,0 +1,15 @@
+{
+  "app": {
+    "port": 3000,
+    "name": "Koa Passport Example - Dev",
+    "keys": ["super-secret-hurr-durr"]
+  },
+  "mongo": {
+    "url": "mongodb://localhost/koapassport_dev"
+  },
+  "jade": {
+    "locals": {
+      "title": "Koa Demo"
+    }
+  }
+}
