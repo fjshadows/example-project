@@ -11,5 +11,6 @@
     "locals": {
       "title": "Koa Demo"
     }
-  }
+  },
+  "tmpDir": "/var/www/example_project/tmp"
 }

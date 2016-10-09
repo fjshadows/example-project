@@ -1,0 +1,9 @@
+div
+  table
+    thead
+      tr: th Files
+    tbody
+      each file, i in fileList
+        tr(class=(i % 2 == 0) ? 'odd' : 'even') 
+          td
+            a(href='/uploads/' + file.id) #{file.name}

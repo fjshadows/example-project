@@ -8,7 +8,7 @@ mongoose.connect(config.mongo.url);
 mongoose.connection.on('error', function (err) {
   console.log(err);
 });
-require('./src/models/user');
+require('./src/models/index');
 
 var app = module.exports = new Koa();
 
