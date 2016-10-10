@@ -1,4 +1,7 @@
 h4 Upload files
 form(method="POST", action="/upload", enctype="multipart/form-data")
   input(type="file", name="file")
+  input(type="checkbox", name="isPublic")
+  | Is public
+  br
   input(type="submit")

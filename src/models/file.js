@@ -9,7 +9,7 @@ var path = require('path');
 var Schema = mongoose.Schema;
 
 var FileSchema = new mongoose.Schema({
-  isPublic: String,
+  isPublic: Boolean,
   name: String
 });
 

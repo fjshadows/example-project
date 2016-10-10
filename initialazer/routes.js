@@ -8,21 +8,23 @@ const fileManager = require('../src/controllers/file_manager');
 const upload = multer({dest: 'tmp'})
 
 module.exports = function (app, passport) {
-  router.get('/private', ctx => {
+  router.get('/private', ctx => new Promise((resolve, reject) => {
     if (ctx.isAuthenticated()) {
       fileManager.getPrivateFiles().then(data => {
         ctx.render('private', data)
+        resolve();
       });
     } else {
       ctx.redirect('/');
     }
-  });
+  }));
 
-  router.get('/', ctx => {
+  router.get('/', ctx => new Promise((resolve, reject) => {
     fileManager.getPublicFiles().then(data => {
       ctx.render('public', data);
+      resolve();
     });
-  });
+  }));
 
   router.get('/login', ctx => {
     ctx.render('parts/login');
@@ -44,9 +46,10 @@ module.exports = function (app, passport) {
   router.post('/register', authController.createUser);
 
   router.post('/upload', upload.single('file'), ctx => new Promise((resolve, reject) => {
-    const fileData = (ctx && ctx.req && ctx.req.file) ? ctx.req.file: {};
+    const fileData = ctx.req.file || {};
+    const isPublic = (ctx.req.body && ctx.req.body.isPublic) ? true: false;
     fileManager.loadFile({
-      isPublic: true,
+      isPublic: isPublic,
       name: fileData.originalname,
       filename: fileData.filename,
       path: fileData.path

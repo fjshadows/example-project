@@ -12,5 +12,5 @@
       "title": "Koa Demo"
     }
   },
-  "tmpDir": "/var/www/example_project/tmp"
+  "tmpDir": "/var/www/example_project/public/uploads"
 }

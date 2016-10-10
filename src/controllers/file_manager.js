@@ -1,40 +1,45 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const _File = mongoose.model('File');
+
+const _mapFileList = file => {
+  if (file && file.attachment) {
+    return {
+      id: file.attachment.name,
+      name: file.name
+    };
+  }
+}
 
 exports.getPrivateFiles = ctx => new Promise((resolve, reject) => {
   try {
-    return resolve({
-      fileList: [{
-        id: '8b3626027b5947436829a1d7da4f7cc2',
-        name: 'private map'
-      }, {
-        id: '987582721633d8060f7ed64da0d8d7fb',
-        name: 'private document'
-      }]
+    let result = {
+      fileList: []
+    };
+    return _File.find({}, function(err, data) {
+      if (data) result.fileList = data.map(_mapFileList);
+      resolve(result);
     });
   } catch (err) {
-    return reject({});
+    return reject(result);
   }
 });
 
 exports.getPublicFiles = ctx => new Promise((resolve, reject) => {
   try {
-    return resolve({
-      fileList: [{
-        id: '8b3626027b5947436829a1d7da4f7cc2',
-        name: 'public map'
-      }, {
-        id: '987582721633d8060f7ed64da0d8d7fb',
-        name: 'public document'
-      }]
+    let result = {
+      fileList: []
+    };
+    return _File.find({isPublic: true}, function(err, data) {
+      if (data) result.fileList = data.map(_mapFileList);
+      resolve(result);
     });
   } catch (err) {
-    return reject({});
+    return reject(result);
   }
 });
 
 exports.loadFile = data => new Promise((resolve, reject) => {
-  const File = mongoose.model('File');
-  const file = new File();
+  const file = new _File();
   file.name = data.name;
   file.isPublic = data.isPublic;
   file.attach('attachment', {path: data.path} , function(err) {
