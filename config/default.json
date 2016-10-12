@@ -7,9 +7,18 @@
   "mongo": {
     "url": "mongodb://localhost/koapassport_dev"
   },
+  "pg": {
+    "host": "127.0.0.1",
+    "port": 5432,
+    "database": "mydb",
+    "user": "root",
+    "password": "root",
+    "max": 10,
+    "idleTimeoutMillis": 30000
+  },
   "jade": {
     "locals": {
-      "title": "Koa Demo"
+      "title": "Example Project"
     }
   },
   "tmpDir": "/var/www/example_project/public/uploads"

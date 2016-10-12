@@ -1,51 +1,16 @@
-const mongoose = require('mongoose');
-const _File = mongoose.model('File');
+var config = require('config');
 
-const _mapFileList = file => {
-  if (file && file.attachment) {
-    return {
-      id: file.attachment.name,
-      name: file.name
-    };
-  }
-}
+var Connector = require('./connector_pg');
+var connector = new Connector(config.pg);
 
 exports.getPrivateFiles = ctx => new Promise((resolve, reject) => {
-  try {
-    let result = {
-      fileList: []
-    };
-    return _File.find({}, function(err, data) {
-      if (data) result.fileList = data.map(_mapFileList);
-      resolve(result);
-    });
-  } catch (err) {
-    return reject(result);
-  }
+  return connector.findPrivateFiles().then(resolve).catch(reject);
 });
 
 exports.getPublicFiles = ctx => new Promise((resolve, reject) => {
-  try {
-    let result = {
-      fileList: []
-    };
-    return _File.find({isPublic: true}, function(err, data) {
-      if (data) result.fileList = data.map(_mapFileList);
-      resolve(result);
-    });
-  } catch (err) {
-    return reject(result);
-  }
+  return connector.findPublicFiles({isPublic: true}).then(resolve).catch(reject);
 });
 
 exports.loadFile = data => new Promise((resolve, reject) => {
-  const file = new _File();
-  file.name = data.name;
-  file.isPublic = data.isPublic;
-  file.attach('attachment', {path: data.path} , function(err) {
-    file.save(function(err) {
-      if(err) reject(err);
-      resolve(null);
-    });
-  })
+  return connector.loadFile(data).then(resolve).catch(reject);
 });

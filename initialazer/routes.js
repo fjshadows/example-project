@@ -5,7 +5,7 @@ const multer = require('koa-multer');
 const authController = require('../src/controllers/auth');
 const fileManager = require('../src/controllers/file_manager');
 
-const upload = multer({dest: 'tmp'})
+const upload = multer({dest: 'public/uploads'})
 
 module.exports = function (app, passport) {
   router.get('/private', ctx => new Promise((resolve, reject) => {
@@ -16,6 +16,7 @@ module.exports = function (app, passport) {
       });
     } else {
       ctx.redirect('/');
+      resolve();
     }
   }));
 
